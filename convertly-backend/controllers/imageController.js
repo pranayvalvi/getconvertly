@@ -27,7 +27,7 @@ const compressImage = async (req, res) => {
 
     res.json({
       success: true,
-      downloadUrl: `http://localhost:5000/uploads/${filename}`,
+      downloadUrl: `${req.protocol}://${req.get('host')}/uploads/${filename}`,
       filename,
     });
   } catch (error) {
@@ -57,7 +57,7 @@ const convertFormat = async (req, res) => {
 
     res.json({
       success: true,
-      downloadUrl: `http://localhost:5000/uploads/${filename}`,
+      downloadUrl: `${req.protocol}://${req.get('host')}/uploads/${filename}`,
       filename,
     });
   } catch (error) {
@@ -87,7 +87,7 @@ const resizeImage = async (req, res) => {
 
     res.json({
       success: true,
-      downloadUrl: `http://localhost:5000/uploads/${filename}`,
+      downloadUrl: `${req.protocol}://${req.get('host')}/uploads/${filename}`,
       filename,
     });
   } catch (error) {
@@ -121,7 +121,7 @@ const createProfilePic = async (req, res) => {
 
     res.json({
       success: true,
-      downloadUrl: `http://localhost:5000/uploads/${filename}`,
+      downloadUrl: `${req.protocol}://${req.get('host')}/uploads/${filename}`,
       filename,
     });
   } catch (error) {

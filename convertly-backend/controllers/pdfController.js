@@ -35,7 +35,7 @@ const mergePdfs = async (req, res) => {
 
     res.json({
       success: true,
-      downloadUrl: `http://localhost:5000/uploads/${filename}`,
+      downloadUrl: `${req.protocol}://${req.get('host')}/uploads/${filename}`,
       filename,
     });
   } catch (error) {
@@ -75,7 +75,7 @@ const imageToPdf = async (req, res) => {
       try { fs.unlinkSync(file.path); } catch(e) {}
     }
 
-    res.json({ success: true, downloadUrl: `http://localhost:5000/uploads/${filename}`, filename });
+    res.json({ success: true, downloadUrl: `${req.protocol}://${req.get('host')}/uploads/${filename}`, filename });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -128,7 +128,7 @@ const splitPdf = async (req, res) => {
 
     try { fs.unlinkSync(req.file.path); } catch(e) {}
 
-    res.json({ success: true, downloadUrl: `http://localhost:5000/uploads/${filename}`, filename });
+    res.json({ success: true, downloadUrl: `${req.protocol}://${req.get('host')}/uploads/${filename}`, filename });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -170,7 +170,7 @@ const watermarkPdf = async (req, res) => {
 
     try { fs.unlinkSync(req.file.path); } catch(e) {}
 
-    res.json({ success: true, downloadUrl: `http://localhost:5000/uploads/${filename}`, filename });
+    res.json({ success: true, downloadUrl: `${req.protocol}://${req.get('host')}/uploads/${filename}`, filename });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
