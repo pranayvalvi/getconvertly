@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
-      <loc>https://convertly.vercel.app/</loc>
+      <loc>https://getconvertly.in/</loc>
       <lastmod>2024-05-18</lastmod>
       <changefreq>weekly</changefreq>
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://convertly.vercel.app/image-tools</loc>
+      <loc>https://getconvertly.in/image-tools</loc>
       <lastmod>2024-05-18</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://convertly.vercel.app/pdf-tools</loc>
+      <loc>https://getconvertly.in/pdf-tools</loc>
       <lastmod>2024-05-18</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://convertly.vercel.app/dev-tools</loc>
+      <loc>https://getconvertly.in/dev-tools</loc>
       <lastmod>2024-05-18</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://convertly.vercel.app/text-tools</loc>
+      <loc>https://getconvertly.in/text-tools</loc>
       <lastmod>2024-05-18</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.6</priority>
