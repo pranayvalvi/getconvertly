@@ -30,15 +30,10 @@ export default function PrivacyPolicy() {
             Tools like our JSON Formatter, Base64 Encoder, and Password Generator operate 100% locally on your device inside your web browser. Any text or data you type into these developer tools never leaves your computer and is never sent to our servers.
           </p>
 
-          <h2 className="text-2xl font-bold text-slate-800 mt-8 mb-4">3. Cookies and Advertising (AdSense)</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mt-8 mb-4">3. Cookies and Local Storage</h2>
           <p>
-            To keep Convertly completely free for everyone to use, we monetize the platform using Google AdSense. 
+            Convertly currently does not utilize tracking cookies or third-party advertising networks. We may use strictly essential cookies or browser local storage exclusively to ensure the basic functionality of the platform (such as maintaining your preferred tool settings).
           </p>
-          <ul className="list-disc pl-6 space-y-2 mt-2">
-            <li>Third party vendors, including Google, use cookies to serve ads based on your prior visits to our website or other websites.</li>
-            <li>Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to our web site and/or other sites on the Internet.</li>
-            <li>You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noreferrer" className="text-brand-600 hover:underline">Google Ads Settings</a>.</li>
-          </ul>
 
           <h2 className="text-2xl font-bold text-slate-800 mt-8 mb-4">4. Log Files and Analytics</h2>
           <p>
