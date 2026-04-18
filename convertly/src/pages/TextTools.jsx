@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CaseLower, CaseUpper, Copy, Trash2, AlignLeft } from "lucide-react";
+import SEO from "../components/SEO";
 
 export default function TextTools() {
   const [text, setText] = useState("");
@@ -23,7 +24,14 @@ export default function TextTools() {
   const clear = () => setText("");
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <>
+      <SEO 
+        title="Free Text Utilities: Word Counter, Formatter & Minifier"
+        description="A powerful suite of free online text tools. Count words, convert case, and minify text instantly in your browser."
+        keywords="word counter, text formatter, online text minifier, character count, case converter, text tools, free online tools"
+        url="/text-tools"
+      />
+      <div className="max-w-4xl mx-auto space-y-8">
       <div className="text-center space-y-2">
         <h1 className="text-4xl font-bold text-slate-900">Text Tools</h1>
         <p className="text-slate-600">Instantly format, minify, and analyze your text locally.</p>
@@ -94,5 +102,6 @@ export default function TextTools() {
         </div>
       </div>
     </div>
+    </>
   );
 }

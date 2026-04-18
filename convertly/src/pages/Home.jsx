@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Image, FileText, Type, ChevronRight, Terminal } from "lucide-react";
+import SEO from "../components/SEO";
 
 const tools = [
   {
@@ -34,7 +35,14 @@ const tools = [
 
 export default function Home() {
   return (
-    <div className="space-y-16">
+    <>
+      <SEO 
+        title="Home"
+        description="Convertly is your free all-in-one suite for pdf merging, image compression, json formatting, and much more. No sign ups required."
+        keywords="free online tools, pdf merger, image compressor, json formatter, base64 encoder, profile picture maker"
+        url="/"
+      />
+      <div className="space-y-16">
       <section className="text-center space-y-6 pt-12 pb-8">
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900">
           The Only <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-700">All-In-One</span> Tool You Need
@@ -64,7 +72,8 @@ export default function Home() {
             </div>
           </Link>
         ))}
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 }

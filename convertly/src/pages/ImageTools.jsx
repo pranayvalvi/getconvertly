@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { Upload, Download, RefreshCw, AlertCircle, Image as ImageIcon, Crop, FileArchive, Scissors } from "lucide-react";
+import SEO from "../components/SEO";
 
 export default function ImageTools() {
   const [activeTab, setActiveTab] = useState("compress");
@@ -97,7 +98,14 @@ export default function ImageTools() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <>
+      <SEO 
+        title="Free Image Tools"
+        description="Compress, convert, and resize images or make perfect profile pictures online for free. Support for JPG, PNG, WebP safely in your browser."
+        keywords="image compressor, convert png to jpg, resize image online, profile picture maker, free image tools"
+        url="/image-tools"
+      />
+      <div className="max-w-4xl mx-auto space-y-8">
       <div className="text-center space-y-2">
         <h1 className="text-4xl font-bold text-slate-900 flex items-center justify-center gap-3">
           <ImageIcon className="text-blue-500" size={36} /> Image Tools
@@ -230,5 +238,6 @@ export default function ImageTools() {
         </div>
       </div>
     </div>
+    </>
   );
 }

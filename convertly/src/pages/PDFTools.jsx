@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
-import { Upload, Download, RefreshCw, AlertCircle, File as FileIcon, X, FilePlus, SplitSquareHorizontal, PenTool } from "lucide-react";
+import { Upload, Download, RefreshCw, AlertCircle, File as FileIcon, X, FilePlus, SplitSquareHorizontal, PenTool, FileText } from "lucide-react";
+import SEO from "../components/SEO";
 
 export default function PDFTools() {
   const [activeTab, setActiveTab] = useState("merge");
@@ -100,7 +101,14 @@ export default function PDFTools() {
   const hasFiles = needsMultipleFiles ? files.length > 0 : !!singleFile;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <>
+      <SEO 
+        title="Free PDF Tools"
+        description="Merge, split, watermark, and convert images to PDFs instantly online. 100% free with no registration required."
+        keywords="pdf merger, split pdf online, images to pdf converter, watermark pdf, free pdf tools"
+        url="/pdf-tools"
+      />
+      <div className="max-w-4xl mx-auto space-y-8">
       <div className="text-center space-y-2">
         <h1 className="text-4xl font-bold text-slate-900 flex items-center justify-center gap-3">
           <FileText className="text-emerald-500" size={36} /> PDF Tools
@@ -206,8 +214,8 @@ export default function PDFTools() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
-// Add FileText icon
-import { FileText } from "lucide-react";
+

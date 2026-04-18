@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Terminal, Lock, Code, Hash, Copy, Check } from "lucide-react";
+import SEO from "../components/SEO";
 
 export default function DevTools() {
   const [activeTab, setActiveTab] = useState("json");
@@ -65,7 +66,14 @@ export default function DevTools() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <>
+      <SEO 
+        title="Free Developer Tools"
+        description="Format JSON, encode and decode Base64 strings, and generate secure passwords instantly in your browser."
+        keywords="json formatter online, base64 encoder, base64 decoder, secure password generator, free developer tools"
+        url="/dev-tools"
+      />
+      <div className="max-w-4xl mx-auto space-y-8">
       <div className="text-center space-y-2">
         <h1 className="text-4xl font-bold text-slate-900 flex items-center justify-center gap-3">
           <Terminal className="text-amber-500" size={36} /> Developer Tools
@@ -194,5 +202,6 @@ export default function DevTools() {
         </div>
       </div>
     </div>
+    </>
   );
 }
