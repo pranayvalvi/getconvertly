@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 
 export default function SEO({ title, description, keywords, url }) {
   const siteName = "Convertly";
-  const defaultUrl = "https://convertly.vercel.app";
+  const defaultUrl = "https://getconvertly.in";
 
   return (
     <Helmet>

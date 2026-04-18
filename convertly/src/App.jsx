@@ -30,8 +30,8 @@ function App() {
           </main>
           <Footer />
         </div>
+        <Analytics />
       </Router>
-      <Analytics />
     </HelmetProvider>
   );
 }
