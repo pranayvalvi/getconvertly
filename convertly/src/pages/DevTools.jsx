@@ -45,10 +45,9 @@ export default function DevTools() {
     if (pwdNumbers) chars += nums;
     if (pwdSymbols) chars += syms;
     
-    let pwd = "";
-    for (let i = 0; i < pwdLength; i++) {
-      pwd += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
+    const array = new Uint32Array(pwdLength);
+    crypto.getRandomValues(array);
+    const pwd = Array.from(array, (val) => chars[val % chars.length]).join("");
     setGeneratedPwd(pwd);
   };
 

@@ -3,6 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
 const fs = require("fs");
+const rateLimit = require("express-rate-limit");
 
 dotenv.config();
 
@@ -16,21 +17,27 @@ if (!fs.existsSync(uploadsDir)) {
 }
 
 const allowedOrigins = [
-  process.env.FRONTEND_URL || "http://localhost:5173",
-  "http://localhost:3000"
-];
+  process.env.FRONTEND_URL,
+  "http://localhost:5173",
+  "http://localhost:3000",
+].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin) || origin.endsWith("vercel.app")) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
   },
   credentials: true
 }));
 app.use(express.json());
+app.use("/api/", rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 30,
+  message: { error: "Too many requests, please try again later." },
+}));
 app.use("/uploads", express.static(path.join(__dirname, "uploads"), {
   setHeaders: (res, path, stat) => {
     res.set("Content-Disposition", "attachment");

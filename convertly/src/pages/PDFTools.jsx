@@ -49,7 +49,6 @@ export default function PDFTools() {
   };
 
   const processApi = async () => {
-    setIsProcessing(true);
     setError("");
     const formData = new FormData();
     let endpoint = "";
@@ -73,6 +72,8 @@ export default function PDFTools() {
       formData.append("text", watermarkText);
       endpoint = "/watermark";
     }
+
+    setIsProcessing(true);
 
     try {
       const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
