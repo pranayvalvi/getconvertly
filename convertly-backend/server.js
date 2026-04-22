@@ -45,6 +45,9 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads"), {
 }));
 
 // Routes
+app.get("/api/csrf-token", (req, res) => {
+  res.json({ csrfToken: "not-implemented" });
+});
 app.use("/api/image", require("./routes/image"));
 app.use("/api/pdf", require("./routes/pdf"));
 // app.use("/api/text", require("./routes/text")); // TODO
