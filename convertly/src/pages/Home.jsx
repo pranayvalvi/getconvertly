@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Image, FileText, Type, ChevronRight, Terminal } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import SEO from "../components/SEO";
 
 const tools = [
@@ -36,12 +37,26 @@ const tools = [
 export default function Home() {
   return (
     <>
-      <SEO 
-        title="Home"
-        description="Convertly is your free all-in-one suite for pdf merging, image compression, json formatting, and much more. No sign ups required."
+      <SEO
+        title="Free Online PDF, Image & Developer Tools"
+        description="Convertly is your free all-in-one suite for PDF merging, image compression, JSON formatting, and much more. No sign up required."
         keywords="free online tools, pdf merger, image compressor, json formatter, base64 encoder, profile picture maker"
         url="/"
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Convertly",
+          "url": "https://getconvertly.in",
+          "description": "Free all-in-one suite for PDF, image, text, and developer tools.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://getconvertly.in/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        })}</script>
+      </Helmet>
       <div className="space-y-16">
       <section className="text-center space-y-6 pt-12 pb-8">
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900">
