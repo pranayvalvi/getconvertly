@@ -119,7 +119,8 @@ export default function PDFTools({ defaultTab = "merge" }) {
     }, 500);
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const rawApiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const API_URL = rawApiUrl.replace(/\/$/, "");
       const response = await fetch(`${API_URL}/api/pdf${endpoint}`, { method: "POST", body: formData });
       const data = await response.json();
       if (response.ok) {

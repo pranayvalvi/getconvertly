@@ -84,7 +84,8 @@ export default function ImageTools({ defaultTab = "compress" }) {
     else if (activeTab === "rotate") { endpoint = "/rotate"; formData.append("angle", rotateAngle); }
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const rawApiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const API_URL = rawApiUrl.replace(/\/$/, "");
       const response = await fetch(`${API_URL}/api/image${endpoint}`, { method: "POST", body: formData });
       const data = await response.json();
       if (response.ok) {
