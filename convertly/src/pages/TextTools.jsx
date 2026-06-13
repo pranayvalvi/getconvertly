@@ -151,7 +151,7 @@ export default function TextTools() {
             {/* Find & Replace */}
             <div className="bg-white/50 p-6 rounded-2xl border border-slate-200/50 shadow-md space-y-4 backdrop-blur-sm">
               <h3 className="font-extrabold text-slate-800 flex items-center gap-2"><Replace size={18} className="text-purple-500" /> Find & Replace</h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
                   type="text"
                   placeholder="Find text..."
