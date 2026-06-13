@@ -6,6 +6,7 @@ const ALLOWED_MIME_TYPES = [
   "image/webp",
   "image/gif",
   "application/pdf",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
 
 const MIME_TO_EXT = {
@@ -14,6 +15,7 @@ const MIME_TO_EXT = {
   "image/webp": ".webp",
   "image/gif": ".gif",
   "application/pdf": ".pdf",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ".docx",
 };
 
 const storage = multer.diskStorage({
@@ -34,7 +36,7 @@ const upload = multer({
     if (ALLOWED_MIME_TYPES.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error(`Unsupported file type: ${file.mimetype}. Allowed: JPEG, PNG, WebP, GIF, PDF.`));
+      cb(new Error(`Unsupported file type: ${file.mimetype}. Allowed: JPEG, PNG, WebP, GIF, PDF, DOCX.`));
     }
   },
 });

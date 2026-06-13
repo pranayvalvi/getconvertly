@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 const dotenv = require("dotenv");
 const path = require("path");
 const fs = require("fs");
@@ -10,18 +11,27 @@ dotenv.config();
 const app = express();
 app.set("trust proxy", 1);
 
+// Force HTTPS in production
+if (process.env.NODE_ENV === "production") {
+  app.use((req, res, next) => {
+    if (req.headers["x-forwarded-proto"] !== "https") {
+      return res.redirect(301, "https://" + req.headers.host + req.url);
+    }
+    next();
+  });
+}
+
 // Ensure uploads directory exists
 const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir);
 }
 
-const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  "http://localhost:5173",
-  "http://localhost:3000",
-].filter(Boolean);
+const allowedOrigins = process.env.NODE_ENV === "production"
+  ? [process.env.FRONTEND_URL].filter(Boolean)
+  : [process.env.FRONTEND_URL, "http://localhost:5173", "http://localhost:3000"].filter(Boolean);
 
+app.use(helmet());
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -45,12 +55,18 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads"), {
 }));
 
 // Routes
-app.get("/api/csrf-token", (req, res) => {
-  res.json({ csrfToken: "not-implemented" });
-});
 app.use("/api/image", require("./routes/image"));
 app.use("/api/pdf", require("./routes/pdf"));
 // app.use("/api/text", require("./routes/text")); // TODO
+
+// 404 handler
+app.use((req, res) => res.status(404).json({ error: "Not found" }));
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.status || 500).json({ error: err.message || "Internal server error" });
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
           </p>
           
           <p className="text-sm mt-12 text-slate-400">
-            Last Updated: 2024
+            Last Updated: 2026
           </p>
         </div>
       </div>
