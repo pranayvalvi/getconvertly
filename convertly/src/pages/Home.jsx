@@ -5,38 +5,20 @@ import { Helmet } from "react-helmet-async";
 import SEO from "../components/SEO";
 
 const tools = [
-  {
-    title: "Image Tools",
-    description: "Compress, resize, format, flip, rotate, and crop profile pictures with zero quality loss.",
-    icon: <Image className="text-blue-500" size={32} />,
-    href: "/image-tools",
-    color: "bg-blue-50/70 border-blue-100 hover:border-blue-300 hover:shadow-blue-100/50",
-    badge: "sharp engine",
-  },
-  {
-    title: "PDF & Word Tools",
-    description: "Merge, split, watermark, rotate, convert images to PDF, and convert PDF ↔ Word.",
-    icon: <FileText className="text-emerald-500" size={32} />,
-    href: "/pdf-tools",
-    color: "bg-emerald-50/70 border-emerald-100 hover:border-emerald-300 hover:shadow-emerald-100/50",
-    badge: "1:1 layout",
-  },
-  {
-    title: "Text Tools",
-    description: "Word count, formatting, minification, sorting, case conversions and text transformations.",
-    icon: <Type className="text-purple-500" size={32} />,
-    href: "/text-tools",
-    color: "bg-purple-50/70 border-purple-100 hover:border-purple-300 hover:shadow-purple-100/50",
-    badge: "local client",
-  },
-  {
-    title: "Developer Tools",
-    description: "Format JSON, encode/decode Base64/URLs, generate secure passwords and SHA hashes.",
-    icon: <Terminal className="text-amber-500" size={32} />,
-    href: "/dev-tools",
-    color: "bg-amber-50/70 border-amber-100 hover:border-amber-300 hover:shadow-amber-100/50",
-    badge: "100% secure",
-  },
+  // PDF Tools
+  { title: "Merge PDF", description: "Combine multiple PDF files into one quickly and securely.", icon: <FileText className="text-emerald-500" size={32} />, href: "/merge-pdf-online", color: "bg-emerald-50/70 border-emerald-100" },
+  { title: "Split PDF", description: "Extract pages from your PDF or split it into multiple documents.", icon: <FileText className="text-emerald-500" size={32} />, href: "/split-pdf-free", color: "bg-emerald-50/70 border-emerald-100" },
+  { title: "Images to PDF", description: "Convert JPG, PNG, and WebP images to a single PDF document.", icon: <FileText className="text-emerald-500" size={32} />, href: "/images-to-pdf", color: "bg-emerald-50/70 border-emerald-100" },
+  { title: "PDF to Word", description: "Convert your PDF into an editable Microsoft Word document.", icon: <FileText className="text-emerald-500" size={32} />, href: "/pdf-to-word", color: "bg-emerald-50/70 border-emerald-100" },
+  { title: "Word to PDF", description: "Convert Word documents into standard PDF files.", icon: <FileText className="text-emerald-500" size={32} />, href: "/word-to-pdf", color: "bg-emerald-50/70 border-emerald-100" },
+  // Image Tools
+  { title: "Compress Image", description: "Reduce image file size with zero visible quality loss.", icon: <Image className="text-blue-500" size={32} />, href: "/compress-jpeg-free", color: "bg-blue-50/70 border-blue-100" },
+  { title: "Resize Image", description: "Change the pixel dimensions of your images instantly.", icon: <Image className="text-blue-500" size={32} />, href: "/resize-image", color: "bg-blue-50/70 border-blue-100" },
+  { title: "Profile Picture Maker", description: "Crop images into perfect circles for social media avatars.", icon: <Image className="text-blue-500" size={32} />, href: "/circular-profile-picture-maker", color: "bg-blue-50/70 border-blue-100" },
+  // Dev Tools
+  { title: "JSON Formatter", description: "Format, validate, and minify your JSON data instantly.", icon: <Terminal className="text-amber-500" size={32} />, href: "/json-formatter", color: "bg-amber-50/70 border-amber-100" },
+  { title: "Secure Password Generator", description: "Create high-entropy cryptographic passwords locally.", icon: <Terminal className="text-amber-500" size={32} />, href: "/secure-password-generator", color: "bg-amber-50/70 border-amber-100" },
+  { title: "Base64 Encoder/Decoder", description: "Encode text to Base64 or decode Base64 to text.", icon: <Terminal className="text-amber-500" size={32} />, href: "/base64-encoder-decoder", color: "bg-amber-50/70 border-amber-100" },
 ];
 
 const faqs = [
@@ -133,9 +115,11 @@ export default function Home() {
               to={tool.href}
               className={`group relative overflow-hidden rounded-3xl p-8 border ${tool.color} transition-all duration-300 hover:shadow-2xl hover:-translate-y-2.5 bg-white/50 backdrop-blur-sm`}
             >
-              <div className="absolute top-4 right-4 bg-white/80 border border-slate-200/50 px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-wider text-slate-500 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
-                {tool.badge}
-              </div>
+              {tool.badge && (
+                <div className="absolute top-4 right-4 bg-white/80 border border-slate-200/50 px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-wider text-slate-500 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                  {tool.badge}
+                </div>
+              )}
               <div className="bg-white w-16 h-16 rounded-2xl shadow-md border border-slate-100 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
                 {tool.icon}
               </div>
