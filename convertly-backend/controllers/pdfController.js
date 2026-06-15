@@ -5,6 +5,8 @@ const pdfParse = require("pdf-parse");
 const docx = require("docx");
 const mammoth = require("mammoth");
 const PDFKitDocument = require("pdfkit");
+const muhammara = require("muhammara");
+const sharp = require("sharp");
 
 const deleteAfterDelay = (filePath, delayMs = 60000) => {
   setTimeout(() => {
@@ -64,7 +66,22 @@ const imageToPdf = async (req, res) => {
     }
     const pdfDoc = await PDFDocument.create();
     for (const file of req.files) {
-      const imgBytes = fs.readFileSync(file.path);
+      let imgBytes = fs.readFileSync(file.path);
+      
+      // Resize large images to avoid OOM (Out of Memory) crashes on free-tier hosts like Render
+      const metadata = await sharp(imgBytes).metadata();
+      const MAX_DIMENSION = 2000;
+      if (metadata.width > MAX_DIMENSION || metadata.height > MAX_DIMENSION) {
+        imgBytes = await sharp(imgBytes)
+          .resize({
+            width: metadata.width > metadata.height ? MAX_DIMENSION : undefined,
+            height: metadata.height >= metadata.width ? MAX_DIMENSION : undefined,
+            withoutEnlargement: true,
+          })
+          .toFormat(file.mimetype === "image/jpeg" ? "jpeg" : "png")
+          .toBuffer();
+      }
+
       const image = file.mimetype === "image/jpeg"
         ? await pdfDoc.embedJpg(imgBytes)
         : await pdfDoc.embedPng(imgBytes);
@@ -496,4 +513,53 @@ const docxToPdf = async (req, res) => {
   }
 };
 
-module.exports = { mergePdfs, imageToPdf, splitPdf, watermarkPdf, rotatePdf, pdfToDocx, docxToPdf };
+const unlockPdf = async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: "No PDF uploaded." });
+    const password = req.body.password || "";
+    const pdfBytes = fs.readFileSync(req.file.path);
+    const pdfDoc = await PDFDocument.load(pdfBytes, { password });
+    const finalBytes = await pdfDoc.save();
+    const filename = `unlocked-${Date.now()}.pdf`;
+    const outputPath = path.join(__dirname, "..", "uploads", filename);
+    fs.writeFileSync(outputPath, finalBytes);
+    deleteAfterDelay(outputPath);
+    res.json({ success: true, downloadUrl: `${req.protocol}://${req.get("host")}/uploads/${filename}`, filename });
+  } catch (error) {
+    console.error("PDF unlock error:", error);
+    res.status(500).json({ error: "Failed to unlock. Incorrect password or invalid PDF." });
+  } finally {
+    if (req.file) {
+      cleanupSingleFile(req.file);
+    }
+  }
+};
+
+const protectPdf = async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: "No PDF uploaded." });
+    const password = req.body.password;
+    if (!password) return res.status(400).json({ error: "Password is required to protect the PDF." });
+    
+    const filename = `protected-${Date.now()}.pdf`;
+    const outputPath = path.join(__dirname, "..", "uploads", filename);
+    
+    muhammara.recrypt(req.file.path, outputPath, {
+      userPassword: password,
+      ownerPassword: password,
+      userProtectionFlag: 4
+    });
+    
+    deleteAfterDelay(outputPath);
+    res.json({ success: true, downloadUrl: `${req.protocol}://${req.get("host")}/uploads/${filename}`, filename });
+  } catch (error) {
+    console.error("PDF protect error:", error);
+    res.status(500).json({ error: "Something went wrong while protecting the PDF." });
+  } finally {
+    if (req.file) {
+      cleanupSingleFile(req.file);
+    }
+  }
+};
+
+module.exports = { mergePdfs, imageToPdf, splitPdf, watermarkPdf, rotatePdf, pdfToDocx, docxToPdf, unlockPdf, protectPdf };

@@ -19,8 +19,22 @@ const faqs = [
   },
 ];
 
+const seoData = {
+  "json": { title: "JSON Formatter & Minifier Free | GetConvertly", desc: "Format, validate, and minify your JSON data instantly.", keywords: "json formatter, json minifier, validate json, format json", h1: "JSON Formatter", h2: "Format and minify your JSON strings." },
+  "base64": { title: "Base64 Encoder & Decoder Free | GetConvertly", desc: "Encode text to Base64 or decode Base64 to text instantly.", keywords: "base64 encoder, base64 decoder, base64 to text", h1: "Base64 Encoder", h2: "Encode and decode Base64 strings." },
+  "url": { title: "URL Encoder & Decoder Free | GetConvertly", desc: "Encode or decode URLs and text with standard URI encoding.", keywords: "url encoder, url decoder, encode uri", h1: "URL Encoder", h2: "Safely encode or decode URL strings." },
+  "hash": { title: "Hash Generator Free | GetConvertly", desc: "Generate secure SHA-256, SHA-512, and other cryptographic hashes.", keywords: "hash generator, sha256 generator, sha512 hash", h1: "Hash Generator", h2: "Generate secure cryptographic hashes." },
+  "password": { title: "Secure Password Generator Free | GetConvertly", desc: "Create secure, high-entropy cryptographic passwords locally.", keywords: "secure password generator, strong password maker", h1: "Password Generator", h2: "Generate secure cryptographic passwords." },
+  "qr": { title: "QR Code Generator Online Free | GetConvertly", desc: "Generate custom QR codes for URLs, text, and data.", keywords: "qr code generator, make qr code online, free qr code", h1: "QR Code Generator", h2: "Create custom QR codes instantly." },
+};
+
 export default function DevTools({ defaultTab = "json" }) {
   const [activeTab, setActiveTab] = useState(defaultTab);
+
+  useEffect(() => {
+    setActiveTab(defaultTab);
+  }, [defaultTab]);
+
   const [copied, setCopied] = useState(false);
 
   // QR Code
@@ -126,10 +140,10 @@ export default function DevTools({ defaultTab = "json" }) {
   return (
     <>
       <SEO
-        title="Free Developer Tools: JSON, Base64, Hashes & Passwords"
-        description="Format/minify JSON, encode/decode Base64 and URLs, generate SHA-256 hashes, and create secure cryptographic passwords instantly. 100% local."
-        keywords="json formatter, base64 encoder, url encoder, sha256 hash generator, secure password generator, free developer tools"
-        url="/dev-tools"
+        title={seoData[activeTab]?.title || "Free Developer Tools: JSON, Base64, Hashes & Passwords"}
+        description={seoData[activeTab]?.desc || "Format/minify JSON, encode/decode Base64 and URLs, generate SHA-256 hashes, and create secure cryptographic passwords instantly. 100% local."}
+        keywords={seoData[activeTab]?.keywords || "json formatter, base64 encoder, url encoder, sha256 hash generator, secure password generator, free developer tools"}
+        url={`/${activeTab === 'json' ? 'json-formatter' : activeTab === 'base64' ? 'base64-encoder-decoder' : activeTab === 'url' ? 'url-encoder-decoder' : activeTab === 'hash' ? 'hash-generator' : activeTab === 'password' ? 'secure-password-generator' : 'qr-code-generator-online'}`}
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify({
@@ -165,9 +179,9 @@ export default function DevTools({ defaultTab = "json" }) {
       <div className="max-w-4xl mx-auto space-y-12">
         <div className="text-center space-y-3">
           <h1 className="text-4xl font-extrabold text-slate-900 flex items-center justify-center gap-3">
-            <Terminal className="text-amber-500" size={36} /> Developer Utilities
+            <Terminal className="text-amber-500" size={36} /> {seoData[activeTab]?.h1 || "Developer Utilities"}
           </h1>
-          <p className="text-slate-600 max-w-md mx-auto">Quick, highly secure, browser-based utilities for developers with zero server transmission.</p>
+          <p className="text-slate-600 max-w-md mx-auto">{seoData[activeTab]?.h2 || "Quick, highly secure, browser-based utilities for developers with zero server transmission."}</p>
         </div>
 
         <div className="glass rounded-3xl overflow-hidden border border-slate-200/50 shadow-xl bg-white/40 backdrop-blur-md">

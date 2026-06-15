@@ -19,9 +19,24 @@ const faqs = [
   },
 ];
 
+const seoData = {
+  "compress": { title: "Compress JPEG/PNG Free | GetConvertly", desc: "Reduce image file sizes by up to 80% without losing visual quality.", keywords: "compress jpeg, compress png, image compressor, reduce image size", h1: "Compress Image", h2: "Reduce image file size with zero visible loss." },
+  "convert": { title: "Convert Image Format Free | GetConvertly", desc: "Convert between JPG, PNG, WebP, and GIF formats instantly.", keywords: "convert image, png to jpg, webp to png", h1: "Convert Image", h2: "Change your image format instantly." },
+  "resize": { title: "Resize Image Pixels Free | GetConvertly", desc: "Change the width and height of your images without losing quality.", keywords: "resize image online, change image dimensions", h1: "Resize Image", h2: "Change the pixel dimensions of your image." },
+  "profile": { title: "Circular Profile Picture Maker Free | GetConvertly", desc: "Crop your image into a perfect circle for social media avatars.", keywords: "profile picture maker, circular crop, round image", h1: "Profile Picture Maker", h2: "Create perfect circular avatars for social media." },
+  "grayscale": { title: "Grayscale Image Free | GetConvertly", desc: "Convert your colored images into black and white instantly.", keywords: "grayscale image, black and white image, filter", h1: "Grayscale Image", h2: "Convert your image to black & white." },
+  "flip": { title: "Flip Image Free | GetConvertly", desc: "Mirror your image horizontally or vertically.", keywords: "flip image, mirror image, reverse image", h1: "Flip Image", h2: "Mirror your image horizontally or vertically." },
+  "rotate": { title: "Rotate Image Free | GetConvertly", desc: "Rotate your images by 90, 180, or 270 degrees.", keywords: "rotate image, turn image, image rotator", h1: "Rotate Image", h2: "Rotate your image to the perfect angle." },
+};
+
 export default function ImageTools({ defaultTab = "compress" }) {
   const { addHistoryItem } = useHistory();
   const [activeTab, setActiveTab] = useState(defaultTab);
+
+  useEffect(() => {
+    setActiveTab(defaultTab);
+  }, [defaultTab]);
+
   const [file, setFile] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState(null);
@@ -118,10 +133,10 @@ export default function ImageTools({ defaultTab = "compress" }) {
   return (
     <>
       <SEO
-        title="Free Image Tools: Compress, Convert & Resize Online"
-        description="Compress JPG/PNG, convert formats, resize pixel ratios, grayscale, crop profile pictures, flip, and rotate images online instantly. 100% free."
-        keywords="image compressor, convert png to jpg, resize image online, flip image, rotate image, grayscale image, profile picture maker, resize jpeg"
-        url="/image-tools"
+        title={seoData[activeTab]?.title || "Free Image Tools: Compress, Convert & Resize Online"}
+        description={seoData[activeTab]?.desc || "Compress JPG/PNG, convert formats, resize pixel ratios, grayscale, crop profile pictures, flip, and rotate images online instantly. 100% free."}
+        keywords={seoData[activeTab]?.keywords || "image compressor, convert png to jpg, resize image online, flip image, rotate image, grayscale image, profile picture maker, resize jpeg"}
+        url={`/${activeTab === 'compress' ? 'compress-jpeg-free' : activeTab === 'profile' ? 'circular-profile-picture-maker' : activeTab === 'convert' ? 'convert-image-format' : activeTab + '-image'}`}
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify({
@@ -157,9 +172,9 @@ export default function ImageTools({ defaultTab = "compress" }) {
       <div className="max-w-4xl mx-auto space-y-12">
         <div className="text-center space-y-3">
           <h1 className="text-4xl font-extrabold text-slate-900 flex items-center justify-center gap-3">
-            <ImageIcon className="text-blue-500" size={36} /> Image Utilities
+            <ImageIcon className="text-blue-500" size={36} /> {seoData[activeTab]?.h1 || "Image Utilities"}
           </h1>
-          <p className="text-slate-600 max-w-md mx-auto">Compress, resize, convert format, flip, rotate and mask your images instantly.</p>
+          <p className="text-slate-600 max-w-md mx-auto">{seoData[activeTab]?.h2 || "Compress, resize, convert format, flip, rotate and mask your images instantly."}</p>
         </div>
 
         <div className="glass rounded-3xl overflow-hidden border border-slate-200/50 shadow-xl bg-white/40 backdrop-blur-md">

@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
-import { Upload, Download, RefreshCw, AlertCircle, File as FileIcon, X, FilePlus, SplitSquareHorizontal, PenTool, FileText, RotateCw, Sparkles, HelpCircle, ChevronRight } from "lucide-react";
+import { Upload, Download, RefreshCw, AlertCircle, File as FileIcon, X, FilePlus, SplitSquareHorizontal, PenTool, FileText, RotateCw, Sparkles, HelpCircle, ChevronRight, Lock, Unlock, Search } from "lucide-react";
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
 import { Helmet } from "react-helmet-async";
 import SEO from "../components/SEO";
 import { useHistory } from "../hooks/useHistory";
@@ -19,9 +21,27 @@ const faqs = [
   },
 ];
 
+const seoData = {
+  "merge": { title: "Merge PDF Online Free | GetConvertly", desc: "Combine multiple PDF files into one quickly and securely.", keywords: "merge pdf, combine pdf online, free pdf merger", h1: "Merge PDF", h2: "Combine multiple PDFs into a single document." },
+  "split": { title: "Split PDF Pages Free | GetConvertly", desc: "Extract pages from your PDF or split it into multiple documents.", keywords: "split pdf, extract pdf pages, free pdf splitter", h1: "Split PDF", h2: "Extract pages from your PDF file." },
+  "images-to-pdf": { title: "Convert Images to PDF Free | GetConvertly", desc: "Convert JPG, PNG, and WebP images to a single PDF document.", keywords: "jpg to pdf, png to pdf, images to pdf converter", h1: "Images to PDF", h2: "Convert your images into a PDF document." },
+  "watermark": { title: "Add Watermark to PDF Free | GetConvertly", desc: "Stamp a custom text watermark onto all pages of your PDF.", keywords: "watermark pdf, stamp pdf, secure pdf", h1: "Watermark PDF", h2: "Add a text watermark to your document." },
+  "rotate": { title: "Rotate PDF Pages Free | GetConvertly", desc: "Rotate all pages in your PDF by 90, 180, or 270 degrees.", keywords: "rotate pdf, turn pdf pages, free pdf rotator", h1: "Rotate PDF", h2: "Rotate your PDF pages instantly." },
+  "pdf-to-docx": { title: "Convert PDF to Word (DOCX) Free | GetConvertly", desc: "Extract text from your PDF into an editable Microsoft Word document.", keywords: "pdf to word, pdf to docx, convert pdf to word", h1: "PDF to Word", h2: "Convert PDF documents to editable Word files." },
+  "docx-to-pdf": { title: "Convert Word to PDF Free | GetConvertly", desc: "Convert Microsoft Word documents into standard PDF files.", keywords: "word to pdf, docx to pdf, convert word to pdf", h1: "Word to PDF", h2: "Convert Word documents to PDF." },
+  "extract-text": { title: "Extract Text from PDF Free | GetConvertly", desc: "Extract all raw text from a PDF document instantly.", keywords: "extract text from pdf, pdf to text, read pdf text", h1: "Extract Text", h2: "Extract raw text content from your PDF." },
+  "protect": { title: "Password Protect PDF Free | GetConvertly", desc: "Encrypt and lock your PDF file with a secure password.", keywords: "protect pdf, lock pdf, encrypt pdf password", h1: "Protect PDF", h2: "Secure your PDF with a password." },
+  "unlock": { title: "Unlock PDF Password Free | GetConvertly", desc: "Remove password protection from your PDF file.", keywords: "unlock pdf, remove pdf password, decrypt pdf", h1: "Unlock PDF", h2: "Remove password protection from a PDF." },
+};
+
 export default function PDFTools({ defaultTab = "merge" }) {
   const { addHistoryItem } = useHistory();
   const [activeTab, setActiveTab] = useState(defaultTab);
+
+  useEffect(() => {
+    setActiveTab(defaultTab);
+  }, [defaultTab]);
+
   const [files, setFiles] = useState([]);
   const [singleFile, setSingleFile] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -33,6 +53,8 @@ export default function PDFTools({ defaultTab = "merge" }) {
   const [splitPages, setSplitPages] = useState("");
   const [watermarkText, setWatermarkText] = useState("CONFIDENTIAL");
   const [rotateAngle, setRotateAngle] = useState("90");
+  const [pdfPassword, setPdfPassword] = useState("");
+  const [extractedText, setExtractedText] = useState("");
 
   const [openFaq, setOpenFaq] = useState(null);
 
@@ -76,6 +98,28 @@ export default function PDFTools({ defaultTab = "merge" }) {
     const formData = new FormData();
     let endpoint = "";
 
+    if (activeTab === "extract-text") {
+      if (!singleFile) return setError("Select a PDF");
+      setIsProcessing(true);
+      try {
+        const fileUrl = URL.createObjectURL(singleFile);
+        const pdf = await pdfjsLib.getDocument(fileUrl).promise;
+        let fullText = "";
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const textContent = await page.getTextContent();
+          const strings = textContent.items.map(item => item.str);
+          fullText += strings.join(" ") + "\n\n";
+        }
+        setExtractedText(fullText.trim() || "No extractable text found.");
+      } catch (err) {
+        setError("Error extracting text. It might be an image-based PDF or protected.");
+      } finally {
+        setIsProcessing(false);
+      }
+      return;
+    }
+
     if (activeTab === "merge") {
       if (files.length < 2) return setError("Select at least 2 PDFs");
       files.forEach(f => formData.append("pdfs", f));
@@ -107,6 +151,18 @@ export default function PDFTools({ defaultTab = "merge" }) {
       if (!singleFile) return setError("Select a Word document (.docx)");
       formData.append("word", singleFile);
       endpoint = "/docx-to-pdf";
+    } else if (activeTab === "unlock") {
+      if (!singleFile) return setError("Select a PDF");
+      if (!pdfPassword) return setError("Password is required to unlock");
+      formData.append("pdf", singleFile);
+      formData.append("password", pdfPassword);
+      endpoint = "/unlock";
+    } else if (activeTab === "protect") {
+      if (!singleFile) return setError("Select a PDF");
+      if (!pdfPassword) return setError("Password is required to protect");
+      formData.append("pdf", singleFile);
+      formData.append("password", pdfPassword);
+      endpoint = "/protect";
     }
 
     setIsProcessing(true);
@@ -151,6 +207,9 @@ export default function PDFTools({ defaultTab = "merge" }) {
     { id: "rotate", label: "Rotate", icon: <RotateCw size={18} /> },
     { id: "pdf-to-docx", label: "PDF to Word", icon: <FileText size={18} /> },
     { id: "docx-to-pdf", label: "Word to PDF", icon: <FileIcon size={18} /> },
+    { id: "extract-text", label: "Extract Text", icon: <Search size={18} /> },
+    { id: "protect", label: "Protect", icon: <Lock size={18} /> },
+    { id: "unlock", label: "Unlock", icon: <Unlock size={18} /> },
   ];
 
   const needsMultipleFiles = activeTab === "merge" || activeTab === "images-to-pdf";
@@ -167,10 +226,10 @@ export default function PDFTools({ defaultTab = "merge" }) {
   return (
     <>
       <SEO
-        title="Free PDF & Word Tools: Merge, Convert, Split, Watermark"
-        description="Merge multiple PDFs, split page ranges, watermark pages, rotate view, convert images to PDF, and convert PDF ↔ Word online instantly. 100% free."
-        keywords="pdf merger, split pdf online, rotate pdf, images to pdf converter, watermark pdf, pdf to word, word to pdf, free pdf tools"
-        url="/pdf-tools"
+        title={seoData[activeTab]?.title || "Free PDF & Word Tools: Merge, Convert, Split, Watermark"}
+        description={seoData[activeTab]?.desc || "Merge multiple PDFs, split page ranges, watermark pages, rotate view, convert images to PDF, and convert PDF ↔ Word online instantly. 100% free."}
+        keywords={seoData[activeTab]?.keywords || "pdf merger, split pdf online, rotate pdf, images to pdf converter, watermark pdf, pdf to word, word to pdf, free pdf tools"}
+        url={`/${activeTab === 'pdf-to-docx' ? 'pdf-to-word' : activeTab === 'docx-to-pdf' ? 'word-to-pdf' : activeTab === 'extract-text' ? 'extract-text-from-pdf' : activeTab === 'merge' ? 'merge-pdf-online' : activeTab === 'split' ? 'split-pdf-free' : activeTab + '-pdf'}`}
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify({
@@ -206,9 +265,9 @@ export default function PDFTools({ defaultTab = "merge" }) {
       <div className="max-w-4xl mx-auto space-y-12">
         <div className="text-center space-y-3">
           <h1 className="text-4xl font-extrabold text-slate-900 flex items-center justify-center gap-3">
-            <FileText className="text-emerald-500" size={36} /> PDF & Word Utilities
+            <FileText className="text-emerald-500" size={36} /> {seoData[activeTab]?.h1 || "PDF & Word Utilities"}
           </h1>
-          <p className="text-slate-600 max-w-md mx-auto">Merge, split, watermark, rotate, and perform pixel-perfect conversions.</p>
+          <p className="text-slate-600 max-w-md mx-auto">{seoData[activeTab]?.h2 || "Merge, split, watermark, rotate, and perform pixel-perfect conversions."}</p>
         </div>
 
         <div className="glass rounded-3xl overflow-hidden border border-slate-200/50 shadow-xl bg-white/40 backdrop-blur-md">
@@ -320,6 +379,45 @@ export default function PDFTools({ defaultTab = "merge" }) {
                   </div>
                 )}
 
+                {(activeTab === "protect" || activeTab === "unlock") && (
+                  <div className="bg-white/70 p-6 rounded-xl border border-slate-200/50 shadow-sm space-y-2">
+                    <label className="font-bold text-slate-700 text-sm">{activeTab === "protect" ? "Set Password" : "Enter Password to Unlock"}</label>
+                    <input type="password" placeholder="Password" value={pdfPassword} onChange={e => setPdfPassword(e.target.value)} className="w-full p-3 border border-slate-200 rounded-xl outline-none" />
+                  </div>
+                )}
+
+                {activeTab === "extract-text" && extractedText && (
+                  <div className="bg-white/70 p-6 rounded-xl border border-slate-200/50 shadow-sm space-y-4">
+                    <label className="font-bold text-slate-700 text-sm">Extracted Text</label>
+                    <textarea 
+                      readOnly 
+                      value={extractedText} 
+                      className="w-full h-64 p-3 border border-slate-200 rounded-xl outline-none resize-none font-mono text-sm"
+                    />
+                    <div className="flex gap-4">
+                      <button 
+                        onClick={() => navigator.clipboard.writeText(extractedText)}
+                        className="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold transition-all"
+                      >
+                        Copy to Clipboard
+                      </button>
+                      <button 
+                        onClick={() => {
+                          const blob = new Blob([extractedText], { type: "text/plain" });
+                          const url = URL.createObjectURL(blob);
+                          const a = document.createElement("a");
+                          a.href = url;
+                          a.download = `extracted-${Date.now()}.txt`;
+                          a.click();
+                        }}
+                        className="flex-1 py-3 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 rounded-xl font-bold transition-all"
+                      >
+                        Download .txt
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 {error && (
                   <div className="p-4 bg-red-50 text-red-700 rounded-xl flex items-center gap-3 text-sm">
                     <AlertCircle size={20} /> {error}
@@ -330,10 +428,10 @@ export default function PDFTools({ defaultTab = "merge" }) {
                   <div className="space-y-3">
                     <button
                       onClick={processApi}
-                      disabled={isProcessing}
+                      disabled={isProcessing || (activeTab === "extract-text" && extractedText)}
                       className="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-emerald-500/20 hover:-translate-y-0.5 transition-all disabled:opacity-50 flex justify-center items-center gap-2"
                     >
-                      {isProcessing ? <><RefreshCw className="animate-spin" /> Processing...</> : "Process File(s)"}
+                      {isProcessing ? <><RefreshCw className="animate-spin" /> Processing...</> : (activeTab === "extract-text" ? "Extract Text" : "Process File(s)")}
                     </button>
                     {isProcessing && (
                       <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden shadow-inner">
