@@ -20,12 +20,12 @@ const faqs = [
 ];
 
 const seoData = {
-  "json": { title: "JSON Formatter & Minifier Free | GetConvertly", desc: "Format, validate, and minify your JSON data instantly.", keywords: "json formatter, json minifier, validate json, format json", h1: "JSON Formatter", h2: "Format and minify your JSON strings." },
-  "base64": { title: "Base64 Encoder & Decoder Free | GetConvertly", desc: "Encode text to Base64 or decode Base64 to text instantly.", keywords: "base64 encoder, base64 decoder, base64 to text", h1: "Base64 Encoder", h2: "Encode and decode Base64 strings." },
-  "url": { title: "URL Encoder & Decoder Free | GetConvertly", desc: "Encode or decode URLs and text with standard URI encoding.", keywords: "url encoder, url decoder, encode uri", h1: "URL Encoder", h2: "Safely encode or decode URL strings." },
-  "hash": { title: "Hash Generator Free | GetConvertly", desc: "Generate secure SHA-256, SHA-512, and other cryptographic hashes.", keywords: "hash generator, sha256 generator, sha512 hash", h1: "Hash Generator", h2: "Generate secure cryptographic hashes." },
-  "password": { title: "Secure Password Generator Free | GetConvertly", desc: "Create secure, high-entropy cryptographic passwords locally.", keywords: "secure password generator, strong password maker", h1: "Password Generator", h2: "Generate secure cryptographic passwords." },
-  "qr": { title: "QR Code Generator Online Free | GetConvertly", desc: "Generate custom QR codes for URLs, text, and data.", keywords: "qr code generator, make qr code online, free qr code", h1: "QR Code Generator", h2: "Create custom QR codes instantly." },
+  "json": { title: "JSON Formatter & Minifier Free", desc: "Format, validate, and minify your JSON data instantly.", keywords: "json formatter, json minifier, validate json, format json", h1: "JSON Formatter", h2: "Format and minify your JSON strings." },
+  "base64": { title: "Base64 Encoder & Decoder Free", desc: "Encode text to Base64 or decode Base64 to text instantly.", keywords: "base64 encoder, base64 decoder, base64 to text", h1: "Base64 Encoder", h2: "Encode and decode Base64 strings." },
+  "url": { title: "URL Encoder & Decoder Free", desc: "Encode or decode URLs and text with standard URI encoding.", keywords: "url encoder, url decoder, encode uri", h1: "URL Encoder", h2: "Safely encode or decode URL strings." },
+  "hash": { title: "Hash Generator Free", desc: "Generate secure SHA-256, SHA-512, and other cryptographic hashes.", keywords: "hash generator, sha256 generator, sha512 hash", h1: "Hash Generator", h2: "Generate secure cryptographic hashes." },
+  "password": { title: "Secure Password Generator Free", desc: "Create secure, high-entropy cryptographic passwords locally.", keywords: "secure password generator, strong password maker", h1: "Password Generator", h2: "Generate secure cryptographic passwords." },
+  "qr": { title: "QR Code Generator Online Free", desc: "Generate custom QR codes for URLs, text, and data.", keywords: "qr code generator, make qr code online, free qr code", h1: "QR Code Generator", h2: "Create custom QR codes instantly." },
 };
 
 export default function DevTools({ defaultTab = "json" }) {

@@ -20,13 +20,13 @@ const faqs = [
 ];
 
 const seoData = {
-  "compress": { title: "Compress JPEG/PNG Free | GetConvertly", desc: "Reduce image file sizes by up to 80% without losing visual quality.", keywords: "compress jpeg, compress png, image compressor, reduce image size", h1: "Compress Image", h2: "Reduce image file size with zero visible loss." },
-  "convert": { title: "Convert Image Format Free | GetConvertly", desc: "Convert between JPG, PNG, WebP, and GIF formats instantly.", keywords: "convert image, png to jpg, webp to png", h1: "Convert Image", h2: "Change your image format instantly." },
-  "resize": { title: "Resize Image Pixels Free | GetConvertly", desc: "Change the width and height of your images without losing quality.", keywords: "resize image online, change image dimensions", h1: "Resize Image", h2: "Change the pixel dimensions of your image." },
-  "profile": { title: "Circular Profile Picture Maker Free | GetConvertly", desc: "Crop your image into a perfect circle for social media avatars.", keywords: "profile picture maker, circular crop, round image", h1: "Profile Picture Maker", h2: "Create perfect circular avatars for social media." },
-  "grayscale": { title: "Grayscale Image Free | GetConvertly", desc: "Convert your colored images into black and white instantly.", keywords: "grayscale image, black and white image, filter", h1: "Grayscale Image", h2: "Convert your image to black & white." },
-  "flip": { title: "Flip Image Free | GetConvertly", desc: "Mirror your image horizontally or vertically.", keywords: "flip image, mirror image, reverse image", h1: "Flip Image", h2: "Mirror your image horizontally or vertically." },
-  "rotate": { title: "Rotate Image Free | GetConvertly", desc: "Rotate your images by 90, 180, or 270 degrees.", keywords: "rotate image, turn image, image rotator", h1: "Rotate Image", h2: "Rotate your image to the perfect angle." },
+  "compress": { title: "Compress JPEG/PNG Free", desc: "Reduce image file sizes by up to 80% without losing visual quality.", keywords: "compress jpeg, compress png, image compressor, reduce image size", h1: "Compress Image", h2: "Reduce image file size with zero visible loss." },
+  "convert": { title: "Convert Image Format Free", desc: "Convert between JPG, PNG, WebP, and GIF formats instantly.", keywords: "convert image, png to jpg, webp to png", h1: "Convert Image", h2: "Change your image format instantly." },
+  "resize": { title: "Resize Image Pixels Free", desc: "Change the width and height of your images without losing quality.", keywords: "resize image online, change image dimensions", h1: "Resize Image", h2: "Change the pixel dimensions of your image." },
+  "profile": { title: "Circular Profile Picture Maker Free", desc: "Crop your image into a perfect circle for social media avatars.", keywords: "profile picture maker, circular crop, round image", h1: "Profile Picture Maker", h2: "Create perfect circular avatars for social media." },
+  "grayscale": { title: "Grayscale Image Free", desc: "Convert your colored images into black and white instantly.", keywords: "grayscale image, black and white image, filter", h1: "Grayscale Image", h2: "Convert your image to black & white." },
+  "flip": { title: "Flip Image Free", desc: "Mirror your image horizontally or vertically.", keywords: "flip image, mirror image, reverse image", h1: "Flip Image", h2: "Mirror your image horizontally or vertically." },
+  "rotate": { title: "Rotate Image Free", desc: "Rotate your images by 90, 180, or 270 degrees.", keywords: "rotate image, turn image, image rotator", h1: "Rotate Image", h2: "Rotate your image to the perfect angle." },
 };
 
 export default function ImageTools({ defaultTab = "compress" }) {

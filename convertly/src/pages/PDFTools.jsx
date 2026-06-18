@@ -22,16 +22,16 @@ const faqs = [
 ];
 
 const seoData = {
-  "merge": { title: "Merge PDF Online Free | GetConvertly", desc: "Combine multiple PDF files into one quickly and securely.", keywords: "merge pdf, combine pdf online, free pdf merger", h1: "Merge PDF", h2: "Combine multiple PDFs into a single document." },
-  "split": { title: "Split PDF Pages Free | GetConvertly", desc: "Extract pages from your PDF or split it into multiple documents.", keywords: "split pdf, extract pdf pages, free pdf splitter", h1: "Split PDF", h2: "Extract pages from your PDF file." },
-  "images-to-pdf": { title: "Convert Images to PDF Free | GetConvertly", desc: "Convert JPG, PNG, and WebP images to a single PDF document.", keywords: "jpg to pdf, png to pdf, images to pdf converter", h1: "Images to PDF", h2: "Convert your images into a PDF document." },
-  "watermark": { title: "Add Watermark to PDF Free | GetConvertly", desc: "Stamp a custom text watermark onto all pages of your PDF.", keywords: "watermark pdf, stamp pdf, secure pdf", h1: "Watermark PDF", h2: "Add a text watermark to your document." },
-  "rotate": { title: "Rotate PDF Pages Free | GetConvertly", desc: "Rotate all pages in your PDF by 90, 180, or 270 degrees.", keywords: "rotate pdf, turn pdf pages, free pdf rotator", h1: "Rotate PDF", h2: "Rotate your PDF pages instantly." },
-  "pdf-to-docx": { title: "Convert PDF to Word (DOCX) Free | GetConvertly", desc: "Extract text from your PDF into an editable Microsoft Word document.", keywords: "pdf to word, pdf to docx, convert pdf to word", h1: "PDF to Word", h2: "Convert PDF documents to editable Word files." },
-  "docx-to-pdf": { title: "Convert Word to PDF Free | GetConvertly", desc: "Convert Microsoft Word documents into standard PDF files.", keywords: "word to pdf, docx to pdf, convert word to pdf", h1: "Word to PDF", h2: "Convert Word documents to PDF." },
-  "extract-text": { title: "Extract Text from PDF Free | GetConvertly", desc: "Extract all raw text from a PDF document instantly.", keywords: "extract text from pdf, pdf to text, read pdf text", h1: "Extract Text", h2: "Extract raw text content from your PDF." },
-  "protect": { title: "Password Protect PDF Free | GetConvertly", desc: "Encrypt and lock your PDF file with a secure password.", keywords: "protect pdf, lock pdf, encrypt pdf password", h1: "Protect PDF", h2: "Secure your PDF with a password." },
-  "unlock": { title: "Unlock PDF Password Free | GetConvertly", desc: "Remove password protection from your PDF file.", keywords: "unlock pdf, remove pdf password, decrypt pdf", h1: "Unlock PDF", h2: "Remove password protection from a PDF." },
+  "merge": { title: "Merge PDF Online Free", desc: "Combine multiple PDF files into one quickly and securely.", keywords: "merge pdf, combine pdf online, free pdf merger", h1: "Merge PDF", h2: "Combine multiple PDFs into a single document." },
+  "split": { title: "Split PDF Pages Free", desc: "Extract pages from your PDF or split it into multiple documents.", keywords: "split pdf, extract pdf pages, free pdf splitter", h1: "Split PDF", h2: "Extract pages from your PDF file." },
+  "images-to-pdf": { title: "Convert Images to PDF Free", desc: "Convert JPG, PNG, and WebP images to a single PDF document.", keywords: "jpg to pdf, png to pdf, images to pdf converter", h1: "Images to PDF", h2: "Convert your images into a PDF document." },
+  "watermark": { title: "Add Watermark to PDF Free", desc: "Stamp a custom text watermark onto all pages of your PDF.", keywords: "watermark pdf, stamp pdf, secure pdf", h1: "Watermark PDF", h2: "Add a text watermark to your document." },
+  "rotate": { title: "Rotate PDF Pages Free", desc: "Rotate all pages in your PDF by 90, 180, or 270 degrees.", keywords: "rotate pdf, turn pdf pages, free pdf rotator", h1: "Rotate PDF", h2: "Rotate your PDF pages instantly." },
+  "pdf-to-docx": { title: "Convert PDF to Word (DOCX) Free", desc: "Extract text from your PDF into an editable Microsoft Word document.", keywords: "pdf to word, pdf to docx, convert pdf to word", h1: "PDF to Word", h2: "Convert PDF documents to editable Word files." },
+  "docx-to-pdf": { title: "Convert Word to PDF Free", desc: "Convert Microsoft Word documents into standard PDF files.", keywords: "word to pdf, docx to pdf, convert word to pdf", h1: "Word to PDF", h2: "Convert Word documents to PDF." },
+  "extract-text": { title: "Extract Text from PDF Free", desc: "Extract all raw text from a PDF document instantly.", keywords: "extract text from pdf, pdf to text, read pdf text", h1: "Extract Text", h2: "Extract raw text content from your PDF." },
+  "protect": { title: "Password Protect PDF Free", desc: "Encrypt and lock your PDF file with a secure password.", keywords: "protect pdf, lock pdf, encrypt pdf password", h1: "Protect PDF", h2: "Secure your PDF with a password." },
+  "unlock": { title: "Unlock PDF Password Free", desc: "Remove password protection from your PDF file.", keywords: "unlock pdf, remove pdf password, decrypt pdf", h1: "Unlock PDF", h2: "Remove password protection from a PDF." },
 };
 
 export default function PDFTools({ defaultTab = "merge" }) {
